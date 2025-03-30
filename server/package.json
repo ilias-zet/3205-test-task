@@ -2,10 +2,12 @@
   "dependencies": {
     "@types/node": "^22.13.11",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9",
+    "pg": "^8.14.1"
   },
   "scripts": {
-    "start": "ts-node index.ts"
+    "start": "nodemon server.ts"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
