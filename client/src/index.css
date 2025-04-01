@@ -6,6 +6,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: theme(--color-gray-900);
 }
 
 #root {
