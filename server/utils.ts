@@ -1,4 +1,4 @@
-export const generateUrl = (length: number = 8): string => {
+export const generateUrl = (length: number = 5): string => {
   const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
 

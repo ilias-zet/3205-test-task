@@ -1,11 +1,14 @@
 import express from 'express';
+import cors from 'cors';
 import pool from './db';
 import 'dotenv/config';
 import { cleanupMiddleware } from './middleware/cleanupMiddleware';
 import { generateUrl } from './utils';
 
 const app = express();
+
 app.use(express.json());
+app.use(cors());
 app.use(cleanupMiddleware);
 
 const PORT = 3005;
@@ -15,7 +18,7 @@ const getClickCount = async (linkId: string): Promise<number> => {
    return rows[0].count;
 }
 
-app.get('/', async (_, res) => {
+app.get('/links', async (_, res) => {
    try {
       const data = await pool.query('SELECT * FROM links');
       res.status(200).send(data.rows);
@@ -34,7 +37,7 @@ app.post('/shorten', async (req, res) => {
          INSERT INTO links (id, original_url, expires_at)
          VALUES ($1, $2, COALESCE($3, CURRENT_TIMESTAMP + interval '7 days'))
       `, [id, originalUrl, expiresAt]);
-      res.status(200).send("Success");
+      res.status(200).send({ id });
    } catch (err) {
       console.log(err);
       res.status(500).send("Internal server error");
@@ -76,15 +79,14 @@ app.get('/analytics/:linkId', async (req, res) => {
 
    try {
       const lastClickedData = await pool.query(`
-         SELECT ip FROM stats WHERE link_id = $1 
+         SELECT ip, date FROM stats WHERE link_id = $1 
          ORDER BY date DESC
          LIMIT 5
       `, [linkId]);
       const clickCount = await getClickCount(linkId);
-      const lastClickedBy = lastClickedData.rows.map(({ ip }) => ip);
 
       res.status(200).send({
-         lastClickedBy,
+         lastClickedBy: lastClickedData.rows,
          clickCount,
       });
 
