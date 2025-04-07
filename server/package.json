@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@types/node": "^22.13.11",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -8,9 +7,11 @@
     "pg": "^8.14.1"
   },
   "scripts": {
-    "start": "nodemon server.ts"
+    "start": "nodemon server.ts",
+    "build": "tsc"
   },
   "devDependencies": {
+    "@types/node": "^22.14.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   }

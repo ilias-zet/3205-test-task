@@ -2,17 +2,14 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "types": ["node"],
-
-    "module": "Node16",
-    "target": "ES2022",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
+    "module": "CommonJS",
+    "target": "ES6",
 
     /* Linting */
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "outDir": "./dist",
+    "rootDir": "./src"
   },
 }

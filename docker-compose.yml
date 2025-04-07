@@ -1,0 +1,25 @@
+services:
+  server:
+    build: ./server
+    ports:
+      - "3005:3005"
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/mydb
+
+  client:
+    build: ./client
+    ports:
+      - "3000:80"
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+
+    volumes:
+        - ./db/db-init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
